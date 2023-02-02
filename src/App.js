@@ -1,46 +1,44 @@
 
 import './App.css';
-import { useState } from 'react';
+import { useState,useCallback } from 'react';
+import { setItem, getItem } from './libs/storage';
 import TodoTitleArea from './components/TodoTitleArea/index';
 import TodoContainer from './components/TodoContainer';
+import debounce from 'lodash.debounce';
 function App() {
-  const [todos , setTodos] = useState([
-    {
-      title:'title1',
-      content:'오늘은 목요일'
-    },
-    {
-      title:'title2',
-      content:'내일은 금요일'
-    }
-  ]);
-
+  const [todos , setTodos] = useState(getItem('todo') || []);
   const [selectTodoIndex,setSelectTodoIndex] = useState(0);
+  const debouncedSetItem = debounce(setItem,5000)
 
-  const setTodo = (newTodo) => {
+  const setTodo = useCallback((newTodo) => {
     const newTodos =[...todos]; //새로운 래퍼런스로
-  
     newTodos[selectTodoIndex] = newTodo ;
+    setTodos(newTodos)
+    debouncedSetItem('todo',newTodos) 
+  },[todos,selectTodoIndex])
 
-    setTodos(newTodos)  
-  }
+  const addTodo = useCallback(() => {
+      const newTodos = [
+        ...todos,
+        {
+          title:'😊제목을 입력하세요',
+          content:'해야할 일들을 기록해 보세요'
+        }
+      ]
+    setTodos(newTodos)
+    setSelectTodoIndex(todos.length)
+    debouncedSetItem('todo',newTodos) 
+  },[todos])
 
-  const addTodo = () => {
-    setTodos([
-      ...todos,
-      {
-        title:'😊제목을 입력하세요',
-        content:'해야할 일들을 기록해 보세요'
+  const deleteTodo = useCallback((index) => {
+      const newTodos = [...todos] ;
+      newTodos.splice(index,1);
+      setTodos(newTodos)
+      if(index===selectTodoIndex){
+        setSelectTodoIndex(0)
       }
-
-    ])
-  }
-
-  const deleteTodo = (index) => {
-    const newTodos = [...todos] ;
-    newTodos.splice(index,1);
-    setTodos(newTodos);
-  }
+     debouncedSetItem('todo',newTodos)
+  },[selectTodoIndex, todos])
 
   return (
     <div className="App">
