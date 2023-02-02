@@ -1,13 +1,13 @@
 import React from 'react';
 import TodoItem from '../TodoItem';
 
-const TodoList = ({todos,setSelectTodoIndex,deleteTodo}) => {
+const TodoList = ({todos,setSelectTodoIndex,deleteTodo,selectTodoIndex}) => {
   
     return (
         <div>
           {
             todos.map((todo,index)=>{
-                console.log(index)
+           
                 return(
                   
                     <TodoItem 
@@ -17,10 +17,11 @@ const TodoList = ({todos,setSelectTodoIndex,deleteTodo}) => {
                         setSelectTodoIndex(index)
                     }}
                     onClickDelete={(e)=>{
-                        e.preventDefault();
+                        deleteTodo(index);
+                        e.preventDefault(); 
                         e.stopPropagation();
-                        deleteTodo(index)
                     }}
+                    isSelected={index===selectTodoIndex}
                     >
                         {todo.title}
                    </TodoItem>

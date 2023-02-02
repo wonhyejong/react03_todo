@@ -6,7 +6,6 @@ body{
 }
 .App{
   width: 800px;
-  height: 300px;
   margin: 50px auto;
   border: 2px solid #332929;
   background:url(./asset/img/note-bg.png) repeat-y #fff8d4;

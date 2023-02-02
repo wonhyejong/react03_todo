@@ -1,10 +1,15 @@
 import React from 'react';
+import './index.css';
 
-const TodoItem = ({children,onClick,onClickDelete}) => {
+const TodoItem = ({children,onClick,onClickDelete,isSelected}) => {
     return (
-        <div onClick={onClick}>
+        <div onClick={onClick} className={'todoItem'+(isSelected ? ' on' : '')}>
             {children}
-            <button onClick={onClickDelete}>Del</button>
+            <button 
+            onClick={onClickDelete}
+            className='delBtn'
+            >Del
+            </button>
         </div>
     );
 };

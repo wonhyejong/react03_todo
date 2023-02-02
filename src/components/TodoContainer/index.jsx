@@ -1,6 +1,15 @@
 import React from 'react';
+import './index.css';
 
 const TodoContainer = ({todo,setTodo}) => {
+    if(todo === undefined){
+        return(
+            <div className='emptyContainer'>
+                <h1>작성된 todo 리스트가 없습니다.</h1>
+                <h2>할일을 추가해 보세요</h2>
+            </div>
+        )
+    }
     return (
         <div className='todoContainer'>
             <div>
@@ -18,6 +27,7 @@ const TodoContainer = ({todo,setTodo}) => {
             </div>
             <div>
                 <textarea value={todo.content}
+                className="todoContent"
                 onChange={(e)=>{
                     setTodo({
                         ...todo, //해당정보유지 

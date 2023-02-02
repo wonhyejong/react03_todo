@@ -19,9 +19,9 @@ function App() {
 
   const setTodo = (newTodo) => {
     const newTodos =[...todos]; //새로운 래퍼런스로
-    console.log(selectTodoIndex)
+  
     newTodos[selectTodoIndex] = newTodo ;
-    console.log(newTodo)
+
     setTodos(newTodos)  
   }
 
@@ -47,6 +47,7 @@ function App() {
         <TodoTitleArea 
         todos={todos} 
         setSelectTodoIndex={setSelectTodoIndex}
+        selectTodoIndex={selectTodoIndex}
         addTodo={addTodo}
         deleteTodo={deleteTodo}
          />
