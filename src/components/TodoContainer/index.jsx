@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 
 const TodoContainer = ({todo,setTodo}) => {
+    console.log(todo);
     if(todo === undefined){
         return(
             <div className='emptyContainer'>

@@ -5,25 +5,29 @@ import { setItem, getItem } from './libs/storage';
 import TodoTitleArea from './components/TodoTitleArea/index';
 import TodoContainer from './components/TodoContainer';
 import debounce from 'lodash.debounce';
+const debouncedSetItem = debounce(setItem,5000)
+
 function App() {
   const [todos , setTodos] = useState(getItem('todo') || []);
   const [selectTodoIndex,setSelectTodoIndex] = useState(0);
-  const debouncedSetItem = debounce(setItem,5000)
+
 
   const setTodo = useCallback((newTodo) => {
-    const newTodos =[...todos]; //새로운 래퍼런스로
+    const newTodos =[...todos]; 
     newTodos[selectTodoIndex] = newTodo ;
     setTodos(newTodos)
     debouncedSetItem('todo',newTodos) 
   },[todos,selectTodoIndex])
 
   const addTodo = useCallback(() => {
+     const now = new Date().getTime();
       const newTodos = [
         ...todos,
         {
           title:'😊제목을 입력하세요',
-          content:'해야할 일들을 기록해 보세요'
-        }
+          content:'해야할 일들을 기록해 보세요',
+          createdAt: now,
+        },
       ]
     setTodos(newTodos)
     setSelectTodoIndex(todos.length)
@@ -35,9 +39,9 @@ function App() {
       newTodos.splice(index,1);
       setTodos(newTodos)
       if(index===selectTodoIndex){
-        setSelectTodoIndex(0)
+        setSelectTodoIndex(0);
       }
-     debouncedSetItem('todo',newTodos)
+      debouncedSetItem('todo',newTodos)
   },[selectTodoIndex, todos])
 
   return (

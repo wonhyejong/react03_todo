@@ -2,7 +2,13 @@ import React from 'react';
 import TodoList from './../TodoList/index';
 import TodoAddBtn from './../TodoAddBtn/index';
 import './index.css';
-const TodoTitleArea = ({todos,setSelectTodoIndex,addTodo,deleteTodo,selectTodoIndex}) => {
+const TodoTitleArea = ({
+    todos,
+    setSelectTodoIndex,
+    addTodo,
+    deleteTodo,
+    selectTodoIndex
+}) => {
     return (
         <div className='titleArea'>
             <h1>Planner</h1>

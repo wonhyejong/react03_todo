@@ -1,18 +1,20 @@
 import React from 'react';
 import TodoItem from '../TodoItem';
 
-const TodoList = ({todos,setSelectTodoIndex,deleteTodo,selectTodoIndex}) => {
+const TodoList = ({
+    todos,
+    setSelectTodoIndex,
+    deleteTodo,
+    selectTodoIndex
+}) => {
   
     return (
         <div>
-          {
-            todos.map((todo,index)=>{
-           
+          { todos.map((todo,index)=>{
+            console.log(todo.createdAt)
                 return(
-                  
                     <TodoItem 
-                    key={index} 
-                    index={index}
+                    key={todo.createdAt} 
                     onClick = {()=>{
                         setSelectTodoIndex(index)
                     }}
