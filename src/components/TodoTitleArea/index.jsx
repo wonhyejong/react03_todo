@@ -1,9 +1,13 @@
 import React from 'react';
+import TodoList from './../TodoList/index';
+import TodoAddBtn from './../TodoAddBtn/index';
 
-const TodoTitleArea = () => {
+const TodoTitleArea = ({todos}) => {
     return (
-        <div>
-            
+        <div className='titleArea'>
+            <h1>Planner</h1>
+            <TodoList todos={todos} />
+            <TodoAddBtn />
         </div>
     );
 };
